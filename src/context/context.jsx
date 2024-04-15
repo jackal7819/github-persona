@@ -1,18 +1,16 @@
 import PropTypes from 'prop-types';
 import { createContext, useState } from 'react';
 
-import defaultFollowers from './defaultData/defaultFollowers';
-import defaultPersona from './defaultData/defaultPersona';
-import defaultRepos from './defaultData/defaultRepos';
+import { initialFollowers, initialPersona, initialRepos } from '../data'
 
 // const URL = 'https://api.github.com';
 
 const GithubContext = createContext();
 
 const GithubProvider = ({ children }) => {
-	const [githubPersona, setGithubPersona] = useState(defaultPersona);
-	const [repos, setRepos] = useState(defaultRepos);
-	const [followers, setFollowers] = useState(defaultFollowers);
+	const [githubPersona, setGithubPersona] = useState(initialPersona);
+	const [repos, setRepos] = useState(initialRepos);
+	const [followers, setFollowers] = useState(initialFollowers);
 
 	return (
 		<GithubContext.Provider value={{ githubPersona, repos, followers }}>
