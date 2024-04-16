@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useContext } from 'react';
 import { FiUsers, FiUserPlus } from 'react-icons/fi';
-import { GithubContext } from '../context/context';
+import { GithubContext } from '../context';
 import { VscGist, VscRepo } from 'react-icons/vsc';
 import Item from './Item';
 const Info = () => {

@@ -1,8 +1,8 @@
 import Info from '../components/Info';
 import Navbar from '../components/Navbar';
+import Persona from '../components/Persona';
 import Repos from '../components/Repos';
 import Search from '../components/Search';
-import User from '../components/User';
 
 const Dashboard = () => {
 	return (
@@ -10,7 +10,7 @@ const Dashboard = () => {
 			<Navbar />
 			<Search/>
 			<Info/>
-			<User/>
+			<Persona/>
 			<Repos/>
 		</main>
 	);

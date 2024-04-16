@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { createContext, useState } from 'react';
 
-import { initialFollowers, initialPersona, initialRepos } from '../data'
+import { initialFollowers, initialPersona, initialRepos } from '../data';
 
 // const URL = 'https://api.github.com';
 
