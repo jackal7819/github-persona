@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getFollowers } from '../services/githubFetch';
 
 const Followers = ({ queryPersona }) => {
-	const { data, isPending, isError } = useQuery({
+	const { data } = useQuery({
 		queryKey: ['followers', queryPersona],
 		queryFn: () => getFollowers(queryPersona),
 	});

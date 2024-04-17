@@ -2,17 +2,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FiUserPlus, FiUsers } from 'react-icons/fi';
 import { VscGist, VscRepo } from 'react-icons/vsc';
-import { useQuery } from '@tanstack/react-query'
 
 import Item from './Item';
-import { getPersona } from '../services/githubFetch'
 
-const Info = ({ queryPersona }) => {
-	const { data, isPending, isError } = useQuery({
-		queryKey: ['githubPersona', queryPersona],
-		queryFn: () => getPersona(queryPersona),
-	});
-	const { public_repos, followers, following, public_gists } = data || {};
+const Info = ({ githubPersona }) => {
+	const { public_repos, followers, following, public_gists } = githubPersona || {};
 	
 	const items = [
 		{
@@ -57,7 +51,7 @@ const Info = ({ queryPersona }) => {
 };
 
 Info.propTypes = {
-	queryPersona: PropTypes.string.isRequired,
+	githubPersona: PropTypes.object,
 };
 
 const Wrapper = styled.section`

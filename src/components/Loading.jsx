@@ -1,8 +1,10 @@
 const Loading = () => {
 	return (
-		<div>
-			<img src='../assets/preloader.svg' alt='preloader' />
-		</div>
+		<img
+			src='../assets/preloader.svg'
+			alt='preloader'
+			className='loading-img'
+		/>
 	);
 };
 

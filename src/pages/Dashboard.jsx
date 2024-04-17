@@ -1,21 +1,39 @@
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
 import Info from '../components/Info';
+import Loading from '../components/Loading';
 import Navbar from '../components/Navbar';
 import Persona from '../components/Persona';
 import Repos from '../components/Repos';
 import Search from '../components/Search';
+import { getPersona } from '../services/githubFetch';
 
 const Dashboard = () => {
 	const [queryPersona, setQueryPersona] = useState('');
+	const { data, isPending, isError } = useQuery({
+		queryKey: ['githubPersona', queryPersona],
+		queryFn: () => getPersona(queryPersona),
+	});
 
+	if (isPending) {
+		return (
+			<main>
+				<Navbar />
+				<Search setQueryPersona={setQueryPersona} isError={isError} />
+				<Loading />
+			</main>
+		);
+	}
+
+	console.log(isError);
 	return (
 		<main>
 			<Navbar />
-			<Search setQueryPersona={setQueryPersona} />
-			<Info queryPersona={queryPersona} />
+			<Search setQueryPersona={setQueryPersona} isError={isError} />
+			<Info githubPersona={data} />
 			<Persona queryPersona={queryPersona} />
-			<Repos queryPersona={queryPersona} />
+			{!isError && <Repos queryPersona={queryPersona} />}
 		</main>
 	);
 };

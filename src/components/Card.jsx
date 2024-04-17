@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getPersona } from '../services/githubFetch';
 
 const Card = ({ queryPersona }) => {
-	const { data, isPending, isError } = useQuery({
+	const { data } = useQuery({
 		queryKey: ['githubPersona', queryPersona],
 		queryFn: () => getPersona(queryPersona),
 	});

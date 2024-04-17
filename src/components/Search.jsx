@@ -4,21 +4,23 @@ import { MdSearch } from 'react-icons/md';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
-import Loading from './Loading';
 import { getRateLimit } from '../services/githubFetch';
 
-const Search = ({ setQueryPersona }) => {
+// import Loading from './Loading';
+
+
+const Search = ({ setQueryPersona, isError }) => {
 	const [persona, setPersona] = useState('');
 
 	const {
 		data: rateLimit,
-		isPending: isRateLimitPending,
-		isError: isRateLimitError,
+		// isPending: isRateLimitPending,
+		// isError: isRateLimitError,
 	} = useQuery({ queryKey: ['rateLimit'], queryFn: getRateLimit });
 
-	if (isRateLimitPending) {
-		return <Loading />;
-	}
+	// if (isRateLimitPending) {
+	// 	return <Loading />;
+	// }
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -30,9 +32,14 @@ const Search = ({ setQueryPersona }) => {
 	return (
 		<section className='section'>
 			<Wrapper className='section-center'>
-				{isRateLimitError && (
+				{rateLimit?.remaining === 0 && (
 					<ErrorWrapper>
 						<p>sorry, you have exceeded you hourly rate limit!</p>
+					</ErrorWrapper>
+				)}
+				{isError && (
+					<ErrorWrapper>
+						<p>there is no persona with that name</p>
 					</ErrorWrapper>
 				)}
 				<form onSubmit={handleSubmit}>
@@ -59,6 +66,7 @@ const Search = ({ setQueryPersona }) => {
 
 Search.propTypes = {
 	setQueryPersona: PropTypes.func.isRequired,
+	isError: PropTypes.bool.isRequired,
 };
 
 const Wrapper = styled.div`

@@ -9,7 +9,7 @@ import Pie3d from './Charts/Pie3d';
 import { getRepos } from '../services/githubFetch';
 
 const Repos = ({ queryPersona }) => {
-	const { data, isPending, isError } = useQuery({
+	const { data } = useQuery({
 		queryKey: ['repos', queryPersona],
 		queryFn: () => getRepos(queryPersona),
 	});
