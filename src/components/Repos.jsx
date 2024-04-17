@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { useContext } from 'react';
 
-import Bar3d from './Charts/Bar3d'
-import Column3d from './Charts/Column3d'
+import Bar3d from './Charts/Bar3d';
+import Column3d from './Charts/Column3d';
 import Doughnut2d from './Charts/Doughnut2d';
 import Pie3d from './Charts/Pie3d';
 import { GithubContext } from '../context';
@@ -39,13 +39,32 @@ const Repos = () => {
 		})
 		.slice(0, 6);
 
+	let { stars, forks } = repos.reduce(
+		(total, item) => {
+			const { stargazers_count, name, forks } = item;
+			total.stars[stargazers_count] = {
+				label: name,
+				value: stargazers_count,
+			};
+			total.forks[forks] = { label: name, value: forks };
+			return total;
+		},
+		{
+			stars: {},
+			forks: {},
+		}
+	);
+
+	stars = Object.values(stars).slice(-5).reverse();
+	forks = Object.values(forks).slice(-5).reverse();
+
 	return (
 		<section className='section'>
 			<Wrapper className='section-center'>
 				<Pie3d data={mostUsed} />
-				<Column3d data={mostPopular} />
+				<Column3d data={stars} />
 				<Doughnut2d data={mostPopular} />
-				<Bar3d data={mostPopular} />
+				<Bar3d data={forks} />
 			</Wrapper>
 		</section>
 	);

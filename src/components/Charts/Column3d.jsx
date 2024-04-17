@@ -1,10 +1,9 @@
 import Chart from 'fusioncharts/fusioncharts.charts';
 import FusionCharts from 'fusioncharts';
-import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import PropTypes from 'prop-types';
 import ReactFC from 'react-fusioncharts';
 
-ReactFC.fcRoot(FusionCharts, Chart, FusionTheme);
+ReactFC.fcRoot(FusionCharts, Chart);
 
 const Column3d = ({ data }) => {
 	const chartConfigs = {

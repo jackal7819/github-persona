@@ -1,10 +1,9 @@
 import Chart from 'fusioncharts/fusioncharts.charts';
 import FusionCharts from 'fusioncharts';
-import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import PropTypes from 'prop-types';
 import ReactFC from 'react-fusioncharts';
 
-ReactFC.fcRoot(FusionCharts, Chart, FusionTheme);
+ReactFC.fcRoot(FusionCharts, Chart);
 
 const Bar3d = ({ data }) => {
 	const chartConfigs = {
@@ -14,14 +13,11 @@ const Bar3d = ({ data }) => {
 		dataFormat: 'json',
 		dataSource: {
 			chart: {
-				caption: 'Languages',
-				theme: 'fusion',
-				decimals: 0,
-				pieRadius: '45%',
-				useDataPlotColorForLabels: '1',
-				showValues: '1',
-				showPercentValues: '0',
-				showPercentInToolTip: '1',
+				caption: 'Most Popular',
+				yAxisName: 'Forks',
+				xAxisName: 'Repos',
+				yAxisNameFontSize: '16px',
+				xAxisNameFontSize: '16px',
 			},
 			data,
 		},
