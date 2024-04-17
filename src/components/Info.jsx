@@ -6,8 +6,9 @@ import { VscGist, VscRepo } from 'react-icons/vsc';
 import Item from './Item';
 
 const Info = ({ githubPersona }) => {
-	const { public_repos, followers, following, public_gists } = githubPersona || {};
-	
+	const { public_repos, followers, following, public_gists } =
+		githubPersona || {};
+
 	const items = [
 		{
 			id: 1,
@@ -38,7 +39,7 @@ const Info = ({ githubPersona }) => {
 			color: 'yellow',
 		},
 	];
-	
+
 	return (
 		<section className='section'>
 			<Wrapper className='section-center'>

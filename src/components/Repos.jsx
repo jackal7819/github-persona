@@ -14,24 +14,26 @@ const Repos = ({ queryPersona }) => {
 		queryFn: () => getRepos(queryPersona),
 	});
 
-	const languages = Array.isArray(data) ? data.reduce((total, item) => {
-		const { language, stargazers_count } = item || {};
-		if (!language) return total;
-		if (!total[language]) {
-			total[language] = {
-				label: language,
-				value: 1,
-				stars: stargazers_count || 0 ,
-			};
-		} else {
-			total[language] = {
-				...total[language],
-				value: total[language].value + 1,
-				stars: total[language].stars + (stargazers_count || 0),
-			};
-		}
-		return total;
-	}, {}) : {};
+	const languages = Array.isArray(data)
+		? data.reduce((total, item) => {
+				const { language, stargazers_count } = item || {};
+				if (!language) return total;
+				if (!total[language]) {
+					total[language] = {
+						label: language,
+						value: 1,
+						stars: stargazers_count || 0,
+					};
+				} else {
+					total[language] = {
+						...total[language],
+						value: total[language].value + 1,
+						stars: total[language].stars + (stargazers_count || 0),
+					};
+				}
+				return total;
+		}, {})
+		: {};
 
 	const mostUsed = Object.values(languages || {})
 		.sort((a, b) => b.value - a.value)
@@ -44,24 +46,6 @@ const Repos = ({ queryPersona }) => {
 		})
 		.slice(0, 6);
 
-	// let { stars, forks } = data.reduce(
-	// 	(total, item) => {
-	// 		const { stargazers_count, name, forks } = item;
-	// 		total.stars[stargazers_count] = {
-	// 			label: name,
-	// 			value: stargazers_count,
-	// 		};
-	// 		total.forks[forks] = { label: name, value: forks };
-	// 		return total;
-	// 	},
-	// 	{
-	// 		stars: {},
-	// 		forks: {},
-	// 	}
-	// );
-
-	// stars = Object.values(stars).slice(-5).reverse();
-	// forks = Object.values(forks).slice(-5).reverse();
 	let stars = [],
 		forks = [];
 

@@ -6,21 +6,13 @@ import { useState } from 'react';
 
 import { getRateLimit } from '../services/githubFetch';
 
-// import Loading from './Loading';
+const Search = ({ setQueryPersona, githubPersona }) => {
+	const [persona, setPersona] = useState('jackal7819');
 
-
-const Search = ({ setQueryPersona, isError }) => {
-	const [persona, setPersona] = useState('');
-
-	const {
-		data: rateLimit,
-		// isPending: isRateLimitPending,
-		// isError: isRateLimitError,
-	} = useQuery({ queryKey: ['rateLimit'], queryFn: getRateLimit });
-
-	// if (isRateLimitPending) {
-	// 	return <Loading />;
-	// }
+	const { data: rateLimit } = useQuery({
+		queryKey: ['rateLimit'],
+		queryFn: getRateLimit,
+	});
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -37,7 +29,7 @@ const Search = ({ setQueryPersona, isError }) => {
 						<p>sorry, you have exceeded you hourly rate limit!</p>
 					</ErrorWrapper>
 				)}
-				{isError && (
+				{githubPersona?.message === 'Not Found' && (
 					<ErrorWrapper>
 						<p>there is no persona with that name</p>
 					</ErrorWrapper>
@@ -66,7 +58,7 @@ const Search = ({ setQueryPersona, isError }) => {
 
 Search.propTypes = {
 	setQueryPersona: PropTypes.func.isRequired,
-	isError: PropTypes.bool.isRequired,
+	githubPersona: PropTypes.object,
 };
 
 const Wrapper = styled.div`
@@ -141,7 +133,7 @@ const Wrapper = styled.div`
 
 const ErrorWrapper = styled.article`
 	position: absolute;
-	width: 90vw;
+	width: 100%;
 	top: 0;
 	left: 0;
 	transform: translateY(-100%);

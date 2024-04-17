@@ -10,8 +10,8 @@ import Search from '../components/Search';
 import { getPersona } from '../services/githubFetch';
 
 const Dashboard = () => {
-	const [queryPersona, setQueryPersona] = useState('');
-	const { data, isPending, isError } = useQuery({
+	const [queryPersona, setQueryPersona] = useState('wesbos');
+	const { data, isPending } = useQuery({
 		queryKey: ['githubPersona', queryPersona],
 		queryFn: () => getPersona(queryPersona),
 	});
@@ -20,20 +20,19 @@ const Dashboard = () => {
 		return (
 			<main>
 				<Navbar />
-				<Search setQueryPersona={setQueryPersona} isError={isError} />
+				<Search setQueryPersona={setQueryPersona} data={data} />
 				<Loading />
 			</main>
 		);
 	}
 
-	console.log(isError);
 	return (
 		<main>
 			<Navbar />
-			<Search setQueryPersona={setQueryPersona} isError={isError} />
+			<Search setQueryPersona={setQueryPersona} githubPersona={data} />
 			<Info githubPersona={data} />
 			<Persona queryPersona={queryPersona} />
-			{!isError && <Repos queryPersona={queryPersona} />}
+			{!data?.message && <Repos queryPersona={queryPersona} />}
 		</main>
 	);
 };

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { MdBusiness, MdLink, MdLocationOn } from 'react-icons/md';
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query';
 
 import { getPersona } from '../services/githubFetch';
 
@@ -20,7 +20,7 @@ const Card = ({ queryPersona }) => {
 		location,
 		twitter_username,
 	} = data || {};
-	
+
 	return (
 		<Wrapper>
 			<header>

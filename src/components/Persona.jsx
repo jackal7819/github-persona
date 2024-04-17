@@ -8,7 +8,7 @@ const Persona = ({ queryPersona }) => {
 	return (
 		<section className='section'>
 			<Wrapper className='section-center'>
-				<Card queryPersona={queryPersona}  />
+				<Card queryPersona={queryPersona} />
 				<Followers queryPersona={queryPersona} />
 			</Wrapper>
 		</section>

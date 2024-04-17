@@ -1,11 +1,7 @@
+import preloader from '../assets/preloader.svg';
+
 const Loading = () => {
-	return (
-		<img
-			src='../assets/preloader.svg'
-			alt='preloader'
-			className='loading-img'
-		/>
-	);
+	return <img src={preloader} alt='preloader' className='loading-img' />;
 };
 
 export default Loading;
