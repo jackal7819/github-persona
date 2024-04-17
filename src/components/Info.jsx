@@ -1,13 +1,19 @@
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useContext } from 'react';
-import { FiUsers, FiUserPlus } from 'react-icons/fi';
-import { GithubContext } from '../context';
+import { FiUserPlus, FiUsers } from 'react-icons/fi';
 import { VscGist, VscRepo } from 'react-icons/vsc';
-import Item from './Item';
-const Info = () => {
-	const { githubPersona } = useContext(GithubContext);
-	const { public_repos, followers, following, public_gists } = githubPersona;
+import { useQuery } from '@tanstack/react-query'
 
+import Item from './Item';
+import { getPersona } from '../services/githubFetch'
+
+const Info = ({ queryPersona }) => {
+	const { data, isPending, isError } = useQuery({
+		queryKey: ['githubPersona', queryPersona],
+		queryFn: () => getPersona(queryPersona),
+	});
+	const { public_repos, followers, following, public_gists } = data || {};
+	
 	const items = [
 		{
 			id: 1,
@@ -38,7 +44,7 @@ const Info = () => {
 			color: 'yellow',
 		},
 	];
-
+	
 	return (
 		<section className='section'>
 			<Wrapper className='section-center'>
@@ -48,6 +54,10 @@ const Info = () => {
 			</Wrapper>
 		</section>
 	);
+};
+
+Info.propTypes = {
+	queryPersona: PropTypes.string.isRequired,
 };
 
 const Wrapper = styled.section`

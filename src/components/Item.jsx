@@ -13,10 +13,10 @@ const Item = ({ icon, label, value, color }) => {
 };
 
 Item.propTypes = {
-	icon: PropTypes.element.isRequired,
-	label: PropTypes.string.isRequired,
-	value: PropTypes.number.isRequired,
-	color: PropTypes.string.isRequired,
+	icon: PropTypes.element,
+	label: PropTypes.string,
+	value: PropTypes.number,
+	color: PropTypes.string,
 };
 
 export default Item;

@@ -1,14 +1,19 @@
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useContext } from 'react'
+import { useQuery } from '@tanstack/react-query';
 
-import { GithubContext } from '../context'
+import { getFollowers } from '../services/githubFetch';
 
-const Followers = () => {
-	const { followers } = useContext(GithubContext);
+const Followers = ({ queryPersona }) => {
+	const { data, isPending, isError } = useQuery({
+		queryKey: ['followers', queryPersona],
+		queryFn: () => getFollowers(queryPersona),
+	});
+	
 	return (
 		<Wrapper>
 			<div className='followers'>
-				{followers.map((follower, index) => {
+				{Array.isArray(data) && data.map((follower, index) => {
 					const { avatar_url, html_url, login } = follower;
 					return (
 						<article key={index}>
@@ -23,6 +28,10 @@ const Followers = () => {
 			</div>
 		</Wrapper>
 	);
+};
+
+Followers.propTypes = {
+	queryPersona: PropTypes.string.isRequired,
 };
 
 const Wrapper = styled.article`

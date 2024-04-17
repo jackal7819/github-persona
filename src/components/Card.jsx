@@ -1,11 +1,15 @@
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { MdBusiness, MdLink, MdLocationOn } from 'react-icons/md';
-import { useContext } from 'react';
+import { useQuery } from '@tanstack/react-query'
 
-import { GithubContext } from '../context';
+import { getPersona } from '../services/githubFetch';
 
-const Card = () => {
-	const { githubPersona } = useContext(GithubContext);
+const Card = ({ queryPersona }) => {
+	const { data, isPending, isError } = useQuery({
+		queryKey: ['githubPersona', queryPersona],
+		queryFn: () => getPersona(queryPersona),
+	});
 	const {
 		avatar_url,
 		html_url,
@@ -15,7 +19,8 @@ const Card = () => {
 		bio,
 		location,
 		twitter_username,
-	} = githubPersona;
+	} = data || {};
+	
 	return (
 		<Wrapper>
 			<header>
@@ -43,6 +48,10 @@ const Card = () => {
 			</div>
 		</Wrapper>
 	);
+};
+
+Card.propTypes = {
+	queryPersona: PropTypes.string.isRequired,
 };
 
 const Wrapper = styled.article`

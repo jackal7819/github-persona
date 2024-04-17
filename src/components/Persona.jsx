@@ -1,16 +1,22 @@
-import Card from './Card';
-import Followers from './Followers';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Persona = () => {
+import Card from './Card';
+import Followers from './Followers';
+
+const Persona = ({ queryPersona }) => {
 	return (
 		<section className='section'>
 			<Wrapper className='section-center'>
-				<Card />
-				<Followers />
+				<Card queryPersona={queryPersona}  />
+				<Followers queryPersona={queryPersona} />
 			</Wrapper>
 		</section>
 	);
+};
+
+Persona.propTypes = {
+	queryPersona: PropTypes.string.isRequired,
 };
 
 const Wrapper = styled.section`

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 import { useQuery } from '@tanstack/react-query';
@@ -6,30 +7,30 @@ import { useState } from 'react';
 import Loading from './Loading';
 import { getRateLimit } from '../services/githubFetch';
 
-const Search = () => {
+const Search = ({ setQueryPersona }) => {
 	const [persona, setPersona] = useState('');
 
 	const {
 		data: rateLimit,
-		isPending,
-		isError,
+		isPending: isRateLimitPending,
+		isError: isRateLimitError,
 	} = useQuery({ queryKey: ['rateLimit'], queryFn: getRateLimit });
 
-	if (isPending) {
+	if (isRateLimitPending) {
 		return <Loading />;
 	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (persona) {
-			window.location = `https://github.com/${persona}`;
-			setPersona('');
+			setQueryPersona(persona);
 		}
 	};
+
 	return (
 		<section className='section'>
 			<Wrapper className='section-center'>
-				{isError && (
+				{isRateLimitError && (
 					<ErrorWrapper>
 						<p>sorry, you have exceeded you hourly rate limit!</p>
 					</ErrorWrapper>
@@ -54,6 +55,10 @@ const Search = () => {
 			</Wrapper>
 		</section>
 	);
+};
+
+Search.propTypes = {
+	setQueryPersona: PropTypes.func.isRequired,
 };
 
 const Wrapper = styled.div`
@@ -134,7 +139,7 @@ const ErrorWrapper = styled.article`
 	transform: translateY(-100%);
 	text-transform: capitalize;
 	p {
-		color: #F472B6;
+		color: #f472b6;
 		font-weight: 700;
 		letter-spacing: var(--spacing);
 	}
