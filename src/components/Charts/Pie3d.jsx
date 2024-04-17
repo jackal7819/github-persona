@@ -16,7 +16,7 @@ const Pie3d = ({ data }) => {
 			chart: {
 				caption: 'Languages',
 				theme: 'fusion',
-				decimals: 0,
+				decimals: '0',
 				pieRadius: '45%',
 				useDataPlotColorForLabels: '1',
 				showValues: '1',
@@ -33,7 +33,7 @@ Pie3d.propTypes = {
 	data: PropTypes.arrayOf(
 		PropTypes.shape({
 			label: PropTypes.string.isRequired,
-			value: PropTypes.string.isRequired,
+			value: PropTypes.number.isRequired,
 		})
 	).isRequired,
 };

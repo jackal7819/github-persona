@@ -29,7 +29,7 @@ Column3d.propTypes = {
 	data: PropTypes.arrayOf(
 		PropTypes.shape({
 			label: PropTypes.string.isRequired,
-			value: PropTypes.string.isRequired,
+			value: PropTypes.number.isRequired,
 		})
 	).isRequired,
 };
