@@ -14,12 +14,13 @@ const Doughnut2d = ({ data }) => {
 		dataFormat: 'json',
 		dataSource: {
 			chart: {
-				caption: 'Languages',
+				caption: 'Stars Per Language',
 				theme: 'fusion',
 				decimals: 0,
-				pieRadius: '50%',
+				pieRadius: '45%',
 				useDataPlotColorForLabels: '1',
-				showValues: '0',
+				showValues: '1',
+				showPercentValues: '0',
 				showPercentInToolTip: '1',
 			},
 			data,

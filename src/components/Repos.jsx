@@ -2,34 +2,46 @@ import styled from 'styled-components';
 import Pie3d from './Charts/Pie3d';
 import { useContext } from 'react';
 import { GithubContext } from '../context';
-import Doughnut2d from './Charts/Doughnut2d'
+import Doughnut2d from './Charts/Doughnut2d';
 
 const Repos = () => {
 	const { repos } = useContext(GithubContext);
-	let languages = repos.reduce((total, item) => {
-		const { language } = item;
+	const languages = repos.reduce((total, item) => {
+		const { language, stargazers_count } = item;
 		if (!language) return total;
 		if (!total[language]) {
-			total[language] = { label: language, value: 1 };
+			total[language] = {
+				label: language,
+				value: 1,
+				stars: stargazers_count,
+			};
 		} else {
 			total[language] = {
 				...total[language],
 				value: total[language].value + 1,
+				stars: total[language].stars + stargazers_count,
 			};
 		}
 		return total;
 	}, {});
 
-	languages = Object.values(languages)
+	const mostUsed = Object.values(languages)
 		.sort((a, b) => b.value - a.value)
+		.slice(0, 6);
+
+	const mostPopular = Object.values(languages)
+		.sort((a, b) => b.stars - a.stars)
+		.map((item) => {
+			return { ...item, value: item.stars };
+		})
 		.slice(0, 6);
 
 	return (
 		<section className='section'>
 			<Wrapper className='section-center'>
-				<Pie3d data={languages} />
+				<Pie3d data={mostUsed} />
 				<div></div>
-				<Doughnut2d data={languages} />
+				<Doughnut2d data={mostPopular} />
 				<div></div>
 			</Wrapper>
 		</section>
