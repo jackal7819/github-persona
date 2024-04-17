@@ -3,6 +3,7 @@ import { MdSearch } from 'react-icons/md';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
+import Loading from './Loading';
 import { getRateLimit } from '../services/githubFetch';
 
 const Search = () => {
@@ -14,7 +15,9 @@ const Search = () => {
 		isError,
 	} = useQuery({ queryKey: ['rateLimit'], queryFn: getRateLimit });
 
-	console.log(rateLimit?.remaining);
+	if (isPending) {
+		return <Loading />;
+	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -26,6 +29,11 @@ const Search = () => {
 	return (
 		<section className='section'>
 			<Wrapper className='section-center'>
+				{isError && (
+					<ErrorWrapper>
+						<p>sorry, you have exceeded you hourly rate limit!</p>
+					</ErrorWrapper>
+				)}
 				<form onSubmit={handleSubmit}>
 					<div className='form-control'>
 						<MdSearch />
@@ -35,7 +43,9 @@ const Search = () => {
 							placeholder='search github persona'
 							onChange={(e) => setPersona(e.target.value)}
 						/>
-						<button type='submit'>search</button>
+						{rateLimit?.remaining > 0 && (
+							<button type='submit'>search</button>
+						)}
 					</div>
 				</form>
 				<h3>
@@ -124,7 +134,8 @@ const ErrorWrapper = styled.article`
 	transform: translateY(-100%);
 	text-transform: capitalize;
 	p {
-		color: red;
+		color: #F472B6;
+		font-weight: 700;
 		letter-spacing: var(--spacing);
 	}
 `;
