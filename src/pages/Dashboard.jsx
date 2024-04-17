@@ -10,7 +10,7 @@ import Search from '../components/Search';
 import { getPersona } from '../services/githubFetch';
 
 const Dashboard = () => {
-	const [queryPersona, setQueryPersona] = useState('wesbos');
+	const [queryPersona, setQueryPersona] = useState('jackal7819');
 	const { data, isPending } = useQuery({
 		queryKey: ['githubPersona', queryPersona],
 		queryFn: () => getPersona(queryPersona),
