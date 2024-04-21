@@ -1,15 +1,26 @@
 import styled from 'styled-components';
 import loginImg from '../assets/login.svg';
 import { useAuth0 } from '@auth0/auth0-react';
+import Loading from '../components/Loading'
 
 const Login = () => {
-	const { loginWithRedirect } = useAuth0();
+	const { loginWithRedirect, isLoading } = useAuth0();
+	
+	if (isLoading)
+		return (
+			<Wrapper>
+				<Loading />
+			</Wrapper>
+		);
+	
 	return (
 		<Wrapper>
 			<div className='container'>
 				<img src={loginImg} alt='github persona' />
 				<h1>github persona</h1>
-				<button className='btn' onClick={loginWithRedirect}>login / sign up</button>
+				<button className='btn' onClick={loginWithRedirect}>
+					login / sign up
+				</button>
 			</div>
 		</Wrapper>
 	);
