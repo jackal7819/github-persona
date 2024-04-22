@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 import loginImg from '../assets/login.svg';
 import { useAuth0 } from '@auth0/auth0-react';
-// import Loading from '../components/Loading'
+import Loading from '../components/Loading'
 
 const Login = () => {
 	const { loginWithRedirect, isLoading} = useAuth0();
 	
-	// if (isLoading)
-	// 	return (
-	// 		<Wrapper>
-	// 			<Loading />
-	// 		</Wrapper>
-	// 	);
+	if (isLoading)
+		return (
+			<Wrapper>
+				<Loading />
+			</Wrapper>
+		);
 	
 	return (
 		<Wrapper>
